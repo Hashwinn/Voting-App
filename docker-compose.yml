@@ -23,6 +23,7 @@ services:
     networks:
       - front-tier
       - back-tier
+    restart: "no"  # Explicitly set to not restart
 
   result:
     build: ./result
@@ -39,6 +40,7 @@ services:
     networks:
       - front-tier
       - back-tier
+    restart: "no"  # Explicitly set to not restart
 
   worker:
     build:
@@ -50,7 +52,8 @@ services:
         condition: service_healthy 
     networks:
       - back-tier
-
+    restart: "no"  # Explicitly set to not restart
+    
   redis:
     image: redis:alpine
     volumes:
@@ -60,7 +63,8 @@ services:
       interval: "5s"
     networks:
       - back-tier
-
+    restart: "no"  # Explicitly set to not restart
+    
   db:
     image: postgres:15-alpine
     environment:
@@ -74,6 +78,7 @@ services:
       interval: "5s"
     networks:
       - back-tier
+    restart: "no"  # Explicitly set to not restart
 
   # this service runs once to seed the database with votes
   # it won't run unless you specify the "seed" profile
